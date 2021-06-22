@@ -15,12 +15,13 @@ export default createGlobalStyle`
     html {
         font-size: 62.5%;
     }
-    body, input, button {
+    body, input, button, select, option {
         font-size: 16px;
         font-family: 'Open Sans', sans-serif;
     }
     button {
       cursor: pointer;
+      border: none;
     }
     .input {
       width: 100%;

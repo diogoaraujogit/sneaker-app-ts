@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { MdSearch } from 'react-icons/md';
+import { useHistory } from 'react-router-dom';
 import Layout from '../../components/Layout';
 import apiSneakers from '../../services/apiSneakers';
 import {
@@ -16,9 +17,16 @@ import {
 interface SneakerProps {
   description?: string;
   thumbnailURL?: string;
+  price?: string;
+  id?: string;
 }
 
 const Store: React.FC = () => {
+  // CONSTS
+  const history = useHistory();
+  const sizeOptions = [41, 42, 43, 44];
+  const quantityOptions = [1, 2, 3, 4];
+
   // PAGE INNER STATES
   const [allSneakers, setAllSneakers] = useState<SneakerProps[]>([]);
   const [sneakersList, setSneakersList] = useState<SneakerProps[]>([]);
@@ -57,7 +65,7 @@ const Store: React.FC = () => {
   }, [searchTerm]);
 
   return (
-    <Layout title="Sneakers" hasBackButton>
+    <Layout title="Sneakers">
       <Container>
         <Content>
           <SearchItem>
@@ -70,7 +78,7 @@ const Store: React.FC = () => {
           </SearchItem>
           <StoreList>
             {sneakersList.map((sneaker) => {
-              const { thumbnailURL, description } = sneaker;
+              const { thumbnailURL, description, price, id } = sneaker;
 
               return (
                 <StoreItem>
@@ -81,10 +89,27 @@ const Store: React.FC = () => {
                       <div>
                         <p>Size</p>
                         <select>
-                          <option>41</option>
+                          {sizeOptions.map((size) => (
+                            <option>{size}</option>
+                          ))}
+                        </select>
+                      </div>
+                      <div>
+                        <p>Quantity</p>
+                        <select>
+                          {quantityOptions.map((quantity) => (
+                            <option>{quantity}</option>
+                          ))}
                         </select>
                       </div>
                     </ItemOptions>
+                    <div className="price">{`$ ${price}`}</div>
+                    <button
+                      type="button"
+                      onClick={() => history.push(`/checkout`)}
+                    >
+                      Add to cart
+                    </button>
                   </ItemInfo>
                 </StoreItem>
               );

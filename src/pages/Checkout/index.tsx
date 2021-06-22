@@ -20,8 +20,8 @@ const Checkout: React.FC = () => {
   };
 
   useEffect(() => {
-    establishPayWithMyBank(amount);
-    addPanelListener(handleSuccess, handleError);
+    // establishPayWithMyBank(amount);
+    // addPanelListener(handleSuccess, handleError);
   }, []);
 
   return (

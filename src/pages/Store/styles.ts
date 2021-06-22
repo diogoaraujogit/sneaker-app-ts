@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { darken } from 'polished';
+import kbArrowDown from '../../assets/kbArrowDown.svg';
 
 export const Container = styled.div`
   display: flex;
@@ -12,7 +14,7 @@ export const Content = styled.div`
   flex-direction: column;
   width: 100%;
   max-width: 110rem;
-  padding-top: 6rem;
+  padding: 6rem 0rem;
 `;
 
 export const SearchItem = styled.div`
@@ -56,20 +58,78 @@ export const StoreItem = styled.div`
   width: 30rem;
   justify-self: center;
   box-shadow: 0px 6px 16px 0px #0000000d;
-  border-radius: 1.6rem;
+  border-radius: 1rem;
 `;
 
 export const ItemInfo = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 1rem;
+  padding: 2rem 1rem 1rem 1rem;
+
+  h3 {
+    font-size: 2rem;
+    color: #000000;
+    font-weight: 400;
+    margin-bottom: 2rem;
+  }
+
+  .price {
+    font-weight: 600;
+    font-size: 2.1rem;
+    color: #000000;
+    margin-bottom: 1.5rem;
+  }
+
+  button {
+    width: 100%;
+    height: 4.2rem;
+    color: #ffffff;
+    background-color: #6b8067;
+    font-size: 1.4rem;
+    font-weight: 700;
+    border-radius: 0.45rem;
+    transition: background 0.2s;
+
+    &:hover {
+      background-color: ${darken(0.2, '#6b8067')};
+    }
+  }
 `;
 
 export const ItemOptions = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0rem 1rem;
+  margin-bottom: 2rem;
 
   > div {
     display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    p,
+    option,
+    select {
+      font-size: 1.2rem;
+      color: #8d8d8d;
+      font-weight: 400;
+    }
+
+    select {
+      border-radius: 2.5rem;
+      border: 0.9px solid #e8e8e8;
+      width: 7rem;
+      height: 2.8rem;
+      padding: 0rem 1rem;
+      cursor: pointer;
+
+      background: url(${kbArrowDown}) no-repeat right;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      background-position: 85%;
+    }
   }
 `;
