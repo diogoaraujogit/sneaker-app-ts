@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Layout from '../../components/Layout';
@@ -7,11 +7,11 @@ import { establishPayWithMyBank } from '../../services/establishPayWithMyBank';
 import { Container } from './styles';
 
 const Checkout: React.FC = () => {
-  const history = useHistory();
   const amount = '70.00';
+  const [approvedTransaction, setApprovedTransaction] = useState(false);
 
   const handleSuccess = (): void => {
-    history.push('/receipt');
+    setApprovedTransaction(true);
     toast.success('success!');
   };
 
@@ -25,7 +25,7 @@ const Checkout: React.FC = () => {
   }, []);
 
   return (
-    <Layout title="CHECKOUT">
+    <Layout title="CHECKOUT" backTo="/store" hasBackButton>
       <Container>Checkout</Container>
     </Layout>
   );

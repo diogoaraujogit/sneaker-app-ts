@@ -1,15 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { MdSearch } from 'react-icons/md';
 import Layout from '../../components/Layout';
 import apiSneakers from '../../services/apiSneakers';
-import { Container, Sneaker } from './styles';
+import {
+  Container,
+  Content,
+  ItemInfo,
+  ItemOptions,
+  SearchItem,
+  StoreItem,
+  StoreList,
+} from './styles';
+
+interface SneakerProps {
+  description?: string;
+  thumbnailURL?: string;
+}
 
 const Store: React.FC = () => {
   // PAGE INNER STATES
-  const [allSneakers, setAllSneakers] = useState([]);
-  // const [sneakersList, setSneakersList] = useState([]);
+  const [allSneakers, setAllSneakers] = useState<SneakerProps[]>([]);
+  const [sneakersList, setSneakersList] = useState<SneakerProps[]>([]);
   // const [pageMessage, setPageMessage] = useState('');
   // const [pageLoading, setPageLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
 
   // ASYNC FUNCTIONS
   const getSneakers = async (): Promise<void> => {
@@ -18,10 +33,18 @@ const Store: React.FC = () => {
 
       if (response?.data?.results) {
         setAllSneakers(response.data.results);
+        setSneakersList(response.data.results);
       }
     } catch (e) {
       toast.error('Sneakers Error');
     }
+  };
+
+  const filterItems = (): void => {
+    const filteredItems = allSneakers.filter((sneaker) =>
+      sneaker?.description?.toLowerCase().includes(searchTerm.toLowerCase()),
+    );
+    setSneakersList(filteredItems);
   };
 
   // PAGE SIDE EFFECTS
@@ -29,19 +52,45 @@ const Store: React.FC = () => {
     getSneakers();
   }, []);
 
-  return (
-    <Layout title="SNEAKERS">
-      <Container>
-        {allSneakers.map((sneaker) => {
-          const { thumbnailURL, description } = sneaker;
+  useEffect(() => {
+    filterItems();
+  }, [searchTerm]);
 
-          return (
-            <Sneaker>
-              <img src={thumbnailURL} alt={description} />
-              <h3>{description}</h3>
-            </Sneaker>
-          );
-        })}
+  return (
+    <Layout title="Sneakers" hasBackButton>
+      <Container>
+        <Content>
+          <SearchItem>
+            <MdSearch />
+            <input
+              placeholder="Search for your sneaker"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </SearchItem>
+          <StoreList>
+            {sneakersList.map((sneaker) => {
+              const { thumbnailURL, description } = sneaker;
+
+              return (
+                <StoreItem>
+                  <img src={thumbnailURL} alt={description} />
+                  <ItemInfo>
+                    <h3>{description}</h3>
+                    <ItemOptions>
+                      <div>
+                        <p>Size</p>
+                        <select>
+                          <option>41</option>
+                        </select>
+                      </div>
+                    </ItemOptions>
+                  </ItemInfo>
+                </StoreItem>
+              );
+            })}
+          </StoreList>
+        </Content>
       </Container>
     </Layout>
   );
