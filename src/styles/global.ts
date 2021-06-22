@@ -8,10 +8,16 @@ export default createGlobalStyle`
         outline: 0;
         box-sizing: border-box;
     }
-    html, body {
-      font-family: 'Open Sans', sans-serif;
+    body {
+      line-height: 1;
       -webkit-font-smoothing: antialiased;
-      font-size: 62.5%;
+    }
+    html {
+        font-size: 62.5%;
+    }
+    body, input, button {
+        font-size: 16px;
+        font-family: 'Open Sans', sans-serif;
     }
     button {
       cursor: pointer;

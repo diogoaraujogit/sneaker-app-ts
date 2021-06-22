@@ -1,12 +1,15 @@
 import { toast } from 'react-toastify';
 
-export const addPanelListener = (): void => {
+export const addPanelListener = (
+  handleSuccess: () => void,
+  handleError: () => void,
+): void => {
   (window as any).PayWithMyBank.addPanelListener((command: any, event: any) => {
     if (command === 'event' && event.type === 'new_location') {
       if (event.data.indexOf('#success') === 0) {
-        toast.success('success!');
+        handleSuccess();
       } else {
-        toast.error('cancel!');
+        handleError();
       }
       return false;
     }
