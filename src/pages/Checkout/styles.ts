@@ -20,24 +20,29 @@ export const Content = styled.div`
 
 export const StepsIndicator = styled.div`
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: space-between;
   background: url(${stepsTL}) no-repeat;
   background-position-y: center;
-  background-size: 100% auto;
+  background-position-x: center;
+  background-size: 98% auto;
   width: 86rem;
-  height: 2rem;
   margin-bottom: 4.8rem;
+  height: 2rem;
 
   svg {
     height: 2rem;
+    font-size: 2rem;
   }
 
   div {
-    align-self: self-end;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
+    width: 2rem;
+    height: 4rem;
+    white-space: nowrap;
   }
 `;
 
@@ -72,12 +77,6 @@ export const PaymentDetails = styled.div`
   padding: 3rem 3.8rem;
   display: flex;
   flex-direction: column;
-`;
-
-export const CardDetails = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  margin-bottom: 2rem;
 
   h3 {
     margin-bottom: 2rem;
@@ -98,16 +97,39 @@ export const CardDetails = styled.div`
     line-height: 2.5rem;
   }
 
-  .details {
-    margin-bottom: 2rem;
-  }
-
   .total-cost {
     display: flex;
     align-items: center;
     font-size: 4.4rem;
     justify-content: space-between;
+    padding-right: 2rem;
   }
+`;
+
+export const CartDetails = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 2rem;
+
+  .details {
+    margin-bottom: 2rem;
+  }
+
+  .online-banking {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    svg {
+      font-size: 4.2rem;
+      color: #6b8067;
+    }
+  }
+`;
+
+export const OrderDetails = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 `;
 
 export const CartTotal = styled.div`
@@ -133,6 +155,18 @@ export const PaymentMethod = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+
+    .banner {
+      width: 8rem;
+      height: 1.5rem;
+      position: absolute;
+      background-color: #ffcc00;
+      margin: -0.75rem 0rem 0rem 3rem;
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 `;
 
@@ -147,12 +181,16 @@ export const PaymentOption = styled.div<PaymentProps>`
   height: 7.5rem;
   width: 100%;
   background-color: #ffffff;
-  font-weight: 400;
-  font-size: 1.6rem;
   border-radius: 1rem;
   padding: 0rem 2.4rem 0rem 3rem;
   border: ${(props) => (props.selected ? '1px solid #5dac50' : 'none')};
   cursor: ${(props) => (props.selected ? 'pointer' : 'not-allowed')};
+
+  p {
+    font-weight: 400;
+    font-size: 1.6rem;
+    color: #000000;
+  }
 `;
 
 export const PaymentButton = styled.button`
@@ -166,7 +204,12 @@ export const PaymentButton = styled.button`
   border-radius: 0.5rem;
   transition: background 0.2s;
 
-  &:hover {
+  &:hover,
+  &:disabled {
     background-color: ${darken(0.2, '#6b8067')};
+  }
+
+  &:disabled {
+    cursor: not-allowed;
   }
 `;

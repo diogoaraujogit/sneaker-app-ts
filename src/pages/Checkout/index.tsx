@@ -2,15 +2,17 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { MdLens } from 'react-icons/md';
+import { AiFillBank } from 'react-icons/ai';
 import Layout from '../../components/Layout';
 import { addPanelListener } from '../../services/addPanelListener';
 import { establishPayWithMyBank } from '../../services/establishPayWithMyBank';
 import {
-  CardDetails,
+  CartDetails,
   CheckoutBody,
   Container,
   Content,
   ItemFullDisplay,
+  OrderDetails,
   PaymentButton,
   PaymentDetails,
   PaymentMethod,
@@ -50,61 +52,106 @@ const Checkout: React.FC = () => {
           <StepsIndicator>
             <div>
               <MdLens color="#61CB46" />
-              <p>Text</p>
+              <p>Cart</p>
             </div>
-            <MdLens color="#61CB46" />
-            <MdLens color={approvedTransaction ? '#61CB46' : '#E8E8E8'} />
+            <div>
+              <MdLens color="#61CB46" />
+              <p>Payment options</p>
+            </div>
+            <div>
+              <MdLens color={approvedTransaction ? '#61CB46' : '#E8E8E8'} />
+              <p>Receipts</p>
+            </div>
           </StepsIndicator>
+
           <CheckoutBody>
             <ItemFullDisplay>
               <img src={cartItem?.maxresURL} alt={cartItem?.description} />
             </ItemFullDisplay>
             <PaymentDetails>
-              <CardDetails>
-                <div>
-                  <h3>Cart total</h3>
-                  <div className="details">
-                    <h4>{cartItem?.description}</h4>
-                    <p>{`x ${cartItem?.quantity} ${cartItem?.color} Size ${cartItem?.size}`}</p>
-                    <p>{`Item #${cartItem?.id}`}</p>
-                  </div>
-                </div>
-                <div>
-                  <h3>Delivery details</h3>
-                  <div className="details">
-                    <p>Diogo Araújo</p>
-                    <p>Phone no: 5592999999999</p>
-                    <p>Address: Redwood City, 2000.</p>
-                  </div>
-                  <div className="total-cost">
+              {!approvedTransaction ? (
+                <>
+                  <CartDetails>
                     <div>
-                      <h4>Total cost</h4>
-                      <p>Delivery included</p>
+                      <h3>Cart total</h3>
+                      <div className="details">
+                        <h4>{cartItem?.description}</h4>
+                        <p>{`x ${cartItem?.quantity} ${cartItem?.color} Size ${cartItem?.size}`}</p>
+                        <p>{`Item #${cartItem?.id}`}</p>
+                      </div>
                     </div>
-                    <div>{`$${cartItem?.price}`}</div>
-                  </div>
-                </div>
-              </CardDetails>
-              <PaymentMethod>
-                <h2>Select your payment method</h2>
-                <div>
-                  <PaymentOption selected>
-                    <p>Online Banking</p>
-                    <img src={bankingFlags} alt="Banking Flags" />
-                  </PaymentOption>
-                  <PaymentOption>
-                    <p>Card Payment</p>
-                    <img src={creditFlags} alt="Credit Flags" />
-                  </PaymentOption>
-                  <PaymentOption>
-                    <p>Apple Pay</p>
-                    <img src={applePayFlag} alt="Apple Pay Flag" />
-                  </PaymentOption>
-                </div>
-              </PaymentMethod>
-              <PaymentButton onClick={() => handleButton()}>
-                Continue
-              </PaymentButton>
+                    <div>
+                      <h3>Delivery details</h3>
+                      <div className="details">
+                        <p>Diogo Araújo</p>
+                        <p>Phone no: 5592999999999</p>
+                        <p>Address: Redwood City, 2000.</p>
+                      </div>
+                      <div className="total-cost">
+                        <div>
+                          <h4>Total cost</h4>
+                          <p>Delivery included</p>
+                        </div>
+                        <div>{`$${cartItem?.price}`}</div>
+                      </div>
+                    </div>
+                  </CartDetails>
+                  <PaymentMethod>
+                    <h2>Select your payment method</h2>
+                    <div>
+                      <div>
+                        <div className="banner">SAVE $10</div>
+                        <PaymentOption selected>
+                          <p>Online Banking</p>
+                          <img src={bankingFlags} alt="Banking Flags" />
+                        </PaymentOption>
+                      </div>
+
+                      <PaymentOption>
+                        <p>Card Payment</p>
+                        <img src={creditFlags} alt="Credit Flags" />
+                      </PaymentOption>
+                      <PaymentOption>
+                        <p>Apple Pay</p>
+                        <img src={applePayFlag} alt="Apple Pay Flag" />
+                      </PaymentOption>
+                    </div>
+                  </PaymentMethod>
+                  <PaymentButton onClick={() => handleButton()}>
+                    Continue
+                  </PaymentButton>
+                </>
+              ) : (
+                <>
+                  <CartDetails>
+                    <div>
+                      <h3>Order summary</h3>
+                      <div className="details">
+                        <h4>{cartItem?.description}</h4>
+                        <p>{`x ${cartItem?.quantity} ${cartItem?.color} Size ${cartItem?.size}`}</p>
+                        <p>{`Item #${cartItem?.id}`}</p>
+                      </div>
+                    </div>
+                    <div>
+                      <h3>Payment Method</h3>
+                      <div className="online-banking">
+                        <AiFillBank />
+                        <h4>Online Banking</h4>
+                      </div>
+                    </div>
+                  </CartDetails>
+                  <OrderDetails>
+                    <div className="total-cost">
+                      <div>
+                        <h4>Total cost</h4>
+                        <p>Delivery included</p>
+                      </div>
+                      <div>{`$${cartItem?.price}`}</div>
+                    </div>
+                    <PaymentButton disabled>Place order</PaymentButton>
+                  </OrderDetails>
+                </>
+              )}
             </PaymentDetails>
           </CheckoutBody>
         </Content>
