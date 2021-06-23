@@ -8,6 +8,8 @@ interface CartItemProps {
   maxresURL?: string;
   price?: string;
   thumbnailURL?: string;
+  size?: string;
+  quantity?: string;
 }
 
 interface CartContextProps {

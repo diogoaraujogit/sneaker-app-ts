@@ -11,29 +11,23 @@ import {
   Container,
   Content,
   ItemFullDisplay,
+  PaymentButton,
   PaymentDetails,
   PaymentMethod,
+  PaymentOption,
   StepsIndicator,
 } from './styles';
 
 import { CartContext } from '../../context/CartContext';
 
+import bankingFlags from '../../assets/bankingFlags.svg';
+import creditFlags from '../../assets/creditFlags.svg';
+import applePayFlag from '../../assets/applePayFlag.svg';
+
 const Checkout: React.FC = () => {
   const [approvedTransaction, setApprovedTransaction] = useState(false);
 
   const { cartItem } = useContext(CartContext);
-
-  // const cartItem = {
-  //   color: 'Green',
-  //   currency: 'USD',
-  //   description: 'SS Sneaker',
-  //   id: '2839u512401',
-  //   maxresURL:
-  //     'https://voliveira.s3-sa-east-1.amazonaws.com/sneakers/ss-sneaker-maxres.png',
-  //   price: '100.00',
-  //   thumbnailURL:
-  //     'https://voliveira.s3-sa-east-1.amazonaws.com/sneakers/ss-sneaker-thumb.png',
-  // };
 
   const handleSuccess = (): void => {
     setApprovedTransaction(true);
@@ -41,13 +35,13 @@ const Checkout: React.FC = () => {
   };
 
   const handleError = (): void => {
-    toast.success('error!');
+    toast.error('error!');
   };
 
-  useEffect(() => {
-    // establishPayWithMyBank(cartItem.price);
-    // addPanelListener(handleSuccess, handleError);
-  }, []);
+  const handleButton = (): void => {
+    establishPayWithMyBank(cartItem?.price);
+    addPanelListener(handleSuccess, handleError);
+  };
 
   return (
     <Layout title="Checkout" backTo="/store" hasBackButton>
@@ -69,12 +63,48 @@ const Checkout: React.FC = () => {
               <CardDetails>
                 <div>
                   <h3>Cart total</h3>
-                  <div>
+                  <div className="details">
                     <h4>{cartItem?.description}</h4>
+                    <p>{`x ${cartItem?.quantity} ${cartItem?.color} Size ${cartItem?.size}`}</p>
+                    <p>{`Item #${cartItem?.id}`}</p>
+                  </div>
+                </div>
+                <div>
+                  <h3>Delivery details</h3>
+                  <div className="details">
+                    <p>Diogo Araújo</p>
+                    <p>Phone no: 5592999999999</p>
+                    <p>Address: Redwood City, 2000.</p>
+                  </div>
+                  <div className="total-cost">
+                    <div>
+                      <h4>Total cost</h4>
+                      <p>Delivery included</p>
+                    </div>
+                    <div>{`$${cartItem?.price}`}</div>
                   </div>
                 </div>
               </CardDetails>
-              <PaymentMethod>Select your payment method</PaymentMethod>
+              <PaymentMethod>
+                <h2>Select your payment method</h2>
+                <div>
+                  <PaymentOption selected>
+                    <p>Online Banking</p>
+                    <img src={bankingFlags} alt="Banking Flags" />
+                  </PaymentOption>
+                  <PaymentOption>
+                    <p>Card Payment</p>
+                    <img src={creditFlags} alt="Credit Flags" />
+                  </PaymentOption>
+                  <PaymentOption>
+                    <p>Apple Pay</p>
+                    <img src={applePayFlag} alt="Apple Pay Flag" />
+                  </PaymentOption>
+                </div>
+              </PaymentMethod>
+              <PaymentButton onClick={() => handleButton()}>
+                Continue
+              </PaymentButton>
             </PaymentDetails>
           </CheckoutBody>
         </Content>

@@ -1,4 +1,4 @@
-export const establishPayWithMyBank = (amount: string): void => {
+export const establishPayWithMyBank = (amount: string | undefined): void => {
   (window as any).PayWithMyBank.establish({
     accessId: 'D61EC9BAF0BB369B9438',
     merchantId: '1004314986',

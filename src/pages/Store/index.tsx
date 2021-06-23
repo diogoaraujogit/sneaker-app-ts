@@ -26,8 +26,8 @@ interface SneakerProps {
 const Store: React.FC = () => {
   // CONSTS
   const history = useHistory();
-  const sizeOptions = [41, 42, 43, 44];
-  const quantityOptions = [1, 2, 3, 4];
+  const sizeOptions = ['41', '42', '43', '44'];
+  const quantityOptions = ['1', '2', '3', '4'];
 
   const { updateCartItem } = useContext(CartContext);
 
@@ -37,6 +37,8 @@ const Store: React.FC = () => {
   // const [pageMessage, setPageMessage] = useState('');
   // const [pageLoading, setPageLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [size, setSize] = useState('41');
+  const [quantity, setQuantity] = useState('1');
 
   // ASYNC FUNCTIONS
   const getSneakers = async (): Promise<void> => {
@@ -60,7 +62,7 @@ const Store: React.FC = () => {
   };
 
   const handleAddToCart = (sneaker: SneakerProps): void => {
-    updateCartItem(sneaker);
+    updateCartItem({ ...sneaker, quantity, size });
     history.push(`/checkout`);
   };
 
@@ -97,17 +99,19 @@ const Store: React.FC = () => {
                     <ItemOptions>
                       <div>
                         <p>Size</p>
-                        <select>
-                          {sizeOptions.map((size) => (
-                            <option>{size}</option>
+                        <select onChange={(e) => setSize(e.target.value)}>
+                          {sizeOptions.map((sizeOption) => (
+                            <option value={sizeOption}>{sizeOption}</option>
                           ))}
                         </select>
                       </div>
                       <div>
                         <p>Quantity</p>
-                        <select>
-                          {quantityOptions.map((quantity) => (
-                            <option>{quantity}</option>
+                        <select onChange={(e) => setQuantity(e.target.value)}>
+                          {quantityOptions.map((quantityOption) => (
+                            <option value={quantityOption}>
+                              {quantityOption}
+                            </option>
                           ))}
                         </select>
                       </div>
