@@ -11,8 +11,16 @@ export const HeaderBar = styled.div`
   height: 8.7rem;
   display: flex;
   align-items: center;
+  justify-content: center;
+`;
+
+export const HeaderContent = styled.div`
+  display: flex;
+  align-items: center;
   justify-content: space-between;
-  padding: 0rem 11rem;
+  padding: 0rem 1rem;
+  width: 100%;
+  max-width: 130rem;
 
   .back-button {
     width: 11.6rem;

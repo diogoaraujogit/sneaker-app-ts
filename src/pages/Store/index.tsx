@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { toast } from 'react-toastify';
 import { MdSearch } from 'react-icons/md';
 import { useHistory } from 'react-router-dom';
@@ -14,6 +14,8 @@ import {
   StoreList,
 } from './styles';
 
+import { CartContext } from '../../context/CartContext';
+
 interface SneakerProps {
   description?: string;
   thumbnailURL?: string;
@@ -26,6 +28,8 @@ const Store: React.FC = () => {
   const history = useHistory();
   const sizeOptions = [41, 42, 43, 44];
   const quantityOptions = [1, 2, 3, 4];
+
+  const { updateCartItem } = useContext(CartContext);
 
   // PAGE INNER STATES
   const [allSneakers, setAllSneakers] = useState<SneakerProps[]>([]);
@@ -53,6 +57,11 @@ const Store: React.FC = () => {
       sneaker?.description?.toLowerCase().includes(searchTerm.toLowerCase()),
     );
     setSneakersList(filteredItems);
+  };
+
+  const handleAddToCart = (sneaker: SneakerProps): void => {
+    updateCartItem(sneaker);
+    history.push(`/checkout`);
   };
 
   // PAGE SIDE EFFECTS
@@ -106,7 +115,7 @@ const Store: React.FC = () => {
                     <div className="price">{`$ ${price}`}</div>
                     <button
                       type="button"
-                      onClick={() => history.push(`/checkout`)}
+                      onClick={() => handleAddToCart(sneaker)}
                     >
                       Add to cart
                     </button>
