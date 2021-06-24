@@ -15,6 +15,10 @@ export const Content = styled.div`
   width: 100%;
   max-width: 110rem;
   padding: 6rem 0rem;
+
+  @media (max-width: 480px) {
+    padding: 3rem 0rem;
+  }
 `;
 
 export const SearchItem = styled.div`
@@ -45,6 +49,19 @@ export const SearchItem = styled.div`
     margin-left: 2rem;
     color: #787878;
   }
+
+  @media (max-width: 480px) {
+    input {
+      padding: 1rem 5rem;
+      &::placeholder {
+        font-size: 2rem;
+      }
+    }
+
+    svg {
+      font-size: 2.5rem;
+    }
+  }
 `;
 
 export const StoreList = styled.div`
@@ -52,6 +69,10 @@ export const StoreList = styled.div`
   grid-template-columns: repeat(3, 1fr);
   grid-row-gap: 6.6rem;
   width: 100%;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const StoreItem = styled.div`

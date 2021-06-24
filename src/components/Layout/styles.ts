@@ -10,11 +10,15 @@ export const Container = styled.div`
 `;
 
 export const HeaderBar = styled.div`
-  background-color: #f1f1f1;
   height: 8.7rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #f1f1f1;
+
+  @media (max-width: 480px) {
+    background-color: transparent;
+  }
 `;
 
 export const HeaderContent = styled.div`
@@ -67,8 +71,16 @@ export const BackButton = styled.button`
   svg {
     font-size: 2.5rem;
   }
+
+  @media (max-width: 480px) {
+    font-size: 1.8rem;
+  }
 `;
 
 export const PageBody = styled.div`
   display: flex;
+
+  @media (max-width: 480px) {
+    padding: 0rem 1.4rem;
+  }
 `;
