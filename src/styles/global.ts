@@ -1,7 +1,11 @@
 import { createGlobalStyle } from 'styled-components';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default createGlobalStyle`
+interface GlobalProps {
+  rate: number;
+}
+
+export default createGlobalStyle<GlobalProps>`
     * {
         margin: 0;
         padding: 0;
@@ -13,7 +17,7 @@ export default createGlobalStyle`
       -webkit-font-smoothing: antialiased;
     }
     html {
-        font-size: 62.5%;
+        font-size: ${(props) => props.rate}%;
     }
     body, input, button, select, option {
         font-size: 16px;

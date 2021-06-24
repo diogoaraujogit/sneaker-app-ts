@@ -59,6 +59,10 @@ export const StoreItem = styled.div`
   justify-self: center;
   box-shadow: 0px 6px 16px 0px #0000000d;
   border-radius: 1rem;
+
+  img {
+    width: 100%;
+  }
 `;
 
 export const ItemInfo = styled.div`
@@ -127,6 +131,7 @@ export const ItemOptions = styled.div`
       cursor: pointer;
 
       background: url(${kbArrowDown}) no-repeat right;
+      background-size: 1.5rem 1.5rem;
       -moz-appearance: none;
       -webkit-appearance: none;
       background-position: 85%;

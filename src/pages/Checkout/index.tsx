@@ -30,20 +30,27 @@ const Checkout: React.FC = () => {
   const [approvedTransaction, setApprovedTransaction] = useState(false);
 
   const { cartItem } = useContext(CartContext);
+  const history = useHistory();
 
   const handleSuccess = (): void => {
     setApprovedTransaction(true);
-    toast.success('success!');
+    toast.success('Payment confirmed');
   };
 
   const handleError = (): void => {
-    toast.error('error!');
+    toast.error('Payment failure');
   };
 
   const handleButton = (): void => {
     establishPayWithMyBank(cartItem?.price);
     addPanelListener(handleSuccess, handleError);
   };
+
+  useEffect(() => {
+    if (!cartItem?.description) {
+      history.push('/store');
+    }
+  }, []);
 
   return (
     <Layout title="Checkout" backTo="/store" hasBackButton>
