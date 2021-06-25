@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useMediaPredicate } from 'react-media-hook';
 
-// Função que monitora a largura atual do dispositivo onde
-// a aplicação está sendo exibida e retorna um valor em
-// porcentagem para ajuste de font-size do html
 interface WindowProps {
   width: number | undefined;
   height: number | undefined;
@@ -39,7 +36,7 @@ export default function useWindowSize(): number {
   useEffect(() => {
     doTheTHing();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Empty array ensures that effect is only run on mount and unmount
+  }, []);
 
   return smallerThan480
     ? (Number(windowSize.width) * 62.5) / 375

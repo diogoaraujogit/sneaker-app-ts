@@ -9,6 +9,16 @@ export const Container = styled.div`
   align-items: center;
 `;
 
+export const InfoArea = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 2rem;
+  color: #a8a8a8;
+  font-weight: 600;
+`;
+
 export const Content = styled.div`
   display: flex;
   flex-direction: column;

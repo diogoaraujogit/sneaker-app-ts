@@ -7,6 +7,7 @@ import apiSneakers from '../../services/apiSneakers';
 import {
   Container,
   Content,
+  InfoArea,
   ItemInfo,
   ItemOptions,
   SearchItem,
@@ -15,6 +16,7 @@ import {
 } from './styles';
 
 import { CartContext } from '../../context/CartContext';
+import Loading from '../../components/Loading';
 
 interface SneakerProps {
   description?: string;
@@ -34,14 +36,17 @@ const Store: React.FC = () => {
   // PAGE INNER STATES
   const [allSneakers, setAllSneakers] = useState<SneakerProps[]>([]);
   const [sneakersList, setSneakersList] = useState<SneakerProps[]>([]);
-  // const [pageMessage, setPageMessage] = useState('');
-  // const [pageLoading, setPageLoading] = useState(true);
+  const [pageLoading, setPageLoading] = useState(false);
+  const [pageMessage, setPageMessage] = useState('Teste');
   const [searchTerm, setSearchTerm] = useState('');
   const [size, setSize] = useState('41');
   const [quantity, setQuantity] = useState('1');
 
   // ASYNC FUNCTIONS
   const getSneakers = async (): Promise<void> => {
+    setPageLoading(true);
+    setPageMessage('');
+
     try {
       const response = await apiSneakers.get('');
 
@@ -50,9 +55,14 @@ const Store: React.FC = () => {
         setSneakersList(response.data.results);
       }
     } catch (e) {
-      toast.error('Sneakers Error');
+      toast.error('Unable to load Sneakers List. Check API');
+      setPageMessage('Unable to load Sneakers List. Check API');
     }
+
+    setPageLoading(false);
   };
+
+  // FUNCTIONS
 
   const filterItems = (): void => {
     const filteredItems = allSneakers.filter((sneaker) =>
@@ -72,6 +82,14 @@ const Store: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    if (!sneakersList.length) {
+      setPageMessage('Sneaker not found');
+    } else {
+      setPageMessage('');
+    }
+  }, [sneakersList]);
+
+  useEffect(() => {
     filterItems();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm]);
@@ -88,47 +106,56 @@ const Store: React.FC = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </SearchItem>
-          <StoreList>
-            {sneakersList.map((sneaker) => {
-              const { thumbnailURL, description, price } = sneaker;
+          {pageLoading || pageMessage ? (
+            <InfoArea>{pageLoading ? <Loading /> : pageMessage}</InfoArea>
+          ) : (
+            <StoreList>
+              {sneakersList.map((sneaker) => {
+                const { thumbnailURL, description, price } = sneaker;
 
-              return (
-                <StoreItem>
-                  <img src={thumbnailURL} alt={description} />
-                  <ItemInfo>
-                    <h3>{description}</h3>
-                    <ItemOptions>
-                      <div>
-                        <p>Size</p>
-                        <select onChange={(e) => setSize(e.target.value)}>
-                          {sizeOptions.map((sizeOption) => (
-                            <option value={sizeOption}>{sizeOption}</option>
-                          ))}
-                        </select>
-                      </div>
-                      <div>
-                        <p>Quantity</p>
-                        <select onChange={(e) => setQuantity(e.target.value)}>
-                          {quantityOptions.map((quantityOption) => (
-                            <option value={quantityOption}>
-                              {quantityOption}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </ItemOptions>
-                    <div className="price">{`$ ${price}`}</div>
-                    <button
-                      type="button"
-                      onClick={() => handleAddToCart(sneaker)}
-                    >
-                      Add to cart
-                    </button>
-                  </ItemInfo>
-                </StoreItem>
-              );
-            })}
-          </StoreList>
+                return (
+                  <StoreItem key={description}>
+                    <img src={thumbnailURL} alt={description} />
+                    <ItemInfo>
+                      <h3>{description}</h3>
+                      <ItemOptions>
+                        <div>
+                          <p>Size</p>
+                          <select onChange={(e) => setSize(e.target.value)}>
+                            {sizeOptions.map((sizeOption) => (
+                              <option key={sizeOption} value={sizeOption}>
+                                {sizeOption}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                        <div>
+                          <p>Quantity</p>
+                          <select onChange={(e) => setQuantity(e.target.value)}>
+                            {quantityOptions.map((quantityOption) => (
+                              <option
+                                key={quantityOption}
+                                value={quantityOption}
+                              >
+                                {quantityOption}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </ItemOptions>
+                      <div className="price">{`$ ${price}`}</div>
+                      <button
+                        type="button"
+                        onClick={() => handleAddToCart(sneaker)}
+                      >
+                        Add to cart
+                      </button>
+                    </ItemInfo>
+                  </StoreItem>
+                );
+              })}
+            </StoreList>
+          )}
         </Content>
       </Container>
     </Layout>
