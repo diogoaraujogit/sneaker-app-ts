@@ -6,8 +6,8 @@ export const establishPayWithMyBank = (amount: string | undefined): void => {
     currency: 'USD',
     paymentType: 'Deferred',
     amount,
-    description: 'daraujo.augusto@gmail.com',
-    merchantReference: '510593',
+    description: process.env.REACT_APP_DESCRIPTION,
+    merchantReference: process.env.REACT_APP_MERCHANT_REFERENCE,
     returnUrl: '#success',
     cancelUrl: '#cancel',
   });

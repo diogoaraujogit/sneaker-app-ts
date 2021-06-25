@@ -30,7 +30,7 @@ import creditFlags from '../../assets/creditFlags.svg';
 import applePayFlag from '../../assets/applePayFlag.svg';
 
 const Checkout: React.FC = () => {
-  const [approvedTransaction, setApprovedTransaction] = useState(true);
+  const [approvedTransaction, setApprovedTransaction] = useState(false);
 
   const { cartItem } = useContext(CartContext);
   const history = useHistory();

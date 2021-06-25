@@ -1,46 +1,36 @@
-# Getting Started with Create React App
+# Sneakers e-commerce
+
+ Simple checkout process of an e-commerce application in which the user will be able to buy one single product and pay using Trustly as the payment method.
+
+## Tecnical Decisions
+In order to keep it simple, I chose not to include tests and other similar verification tools.
+Keeping in mind project's nature and objective, not enough user tests were run, therefore, app may includes some UI or usability minor bugs.
+
+## Technologies
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+- TypeScript
+- React Router Dom
+- Styled-components
+- Axios
+- Polished
+- React Icons
+- React Media Hook
+- React toastify
+- ESLint
+- Prettier
 
-In the project directory, you can run:
+## Netlify
 
-### `yarn start`
+Live on https://sneakers-ecommerce.netlify.app/
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Run local
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+01. You must have ```node``` and ```yarn``` installed.
+02. Clone this repo.
+02. On ```.env``` file, input your api link and credentials.
+03. Run ```yarn && yarn start```
 
-### `yarn test`
+## Preview
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
