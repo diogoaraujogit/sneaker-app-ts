@@ -73,6 +73,7 @@ const Store: React.FC = () => {
 
   useEffect(() => {
     filterItems();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm]);
 
   return (
@@ -89,7 +90,7 @@ const Store: React.FC = () => {
           </SearchItem>
           <StoreList>
             {sneakersList.map((sneaker) => {
-              const { thumbnailURL, description, price, id } = sneaker;
+              const { thumbnailURL, description, price } = sneaker;
 
               return (
                 <StoreItem>

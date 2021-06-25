@@ -54,6 +54,7 @@ const Checkout: React.FC = () => {
     if (!cartItem?.description) {
       history.push('/store');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
