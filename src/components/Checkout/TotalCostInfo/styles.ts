@@ -8,9 +8,7 @@ export const Container = styled.div`
   padding-right: 2rem;
 
   @media (max-width: 480px) {
-    .total-cost {
-      font-size: 3.6rem;
-      justify-content: space-between;
-    }
+    font-size: 3.6rem;
+    justify-content: space-between;
   }
 `;
